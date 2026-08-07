@@ -1,0 +1,8 @@
+.rectangle{
+    width: 1440px;
+    height: 96px;
+    background-color: #052962;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    
+}

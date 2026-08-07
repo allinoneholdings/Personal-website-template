@@ -1,0 +1,6 @@
+.app-shell {
+  min-height: 100vh;
+  background: #ffffff;
+  overflow: visible;
+  padding-top: 54px;
+}
