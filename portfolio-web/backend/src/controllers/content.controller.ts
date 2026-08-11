@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { uploadImage } from "../services/imageKit";
 import contentModel from "../model/content.model";
+import ImageKit from "imagekit";
 
 type UploadedFile = {
   fieldname: string;
@@ -70,4 +71,68 @@ export const getTheContent = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ message: "Error fetching content", error });
   }
+};
+
+export const updateContent = async (req: Request, res: Response) => {
+    try {
+        const { title, name } = req.body;
+
+        if (!title || !name) {
+            return res.status(400).json({
+                message: "Title and name are required",
+            });
+        }
+
+        const updateData: any = {
+            title,
+            name,
+        };
+
+        // Update image only if a new image was uploaded
+        if (req.file) {
+            try {
+                const uploadedImage = await imagekit.upload({
+                    file: req.file.buffer,
+                    fileName: req.file.originalname,
+                    folder: "/content",
+                });
+
+                updateData.img = {
+                    url: uploadedImage.url,
+                    fileId: uploadedImage.fileId,
+                };
+            } catch (imageError) {
+                return res.status(500).json({
+                    message: "Image upload failed",
+                    error: imageError,
+                });
+            }
+        }
+
+        const updatedContent = await contentModel.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        if (!updatedContent) {
+            return res.status(404).json({
+                message: "Content not found",
+            });
+        }
+
+        return res.status(200).json({
+            message: "Content updated successfully",
+            data: updatedContent,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error updating content",
+            error,
+        });
+    }
 };
