@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import contentRoutes from "./routes/content.router";
 
 const app = express();
 
@@ -13,4 +14,5 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/api",contentRoutes); 
 export default app;
