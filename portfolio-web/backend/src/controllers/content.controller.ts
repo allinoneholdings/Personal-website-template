@@ -22,7 +22,7 @@ export const createContent = async (req: Request, res: Response) => {
   }
 };
 
-const getAllContent = async (req: Request, res: Response) => {
+export const getTheContent = async (req: Request, res: Response) => {
   try {
     const contents = await contentModel.find();
     res.status(200).json(contents);

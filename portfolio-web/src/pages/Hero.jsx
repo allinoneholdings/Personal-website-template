@@ -1,7 +1,21 @@
+import { useEffect, useState } from "react";
 import "./hero.css";
 import profileImage from "../assets/image.png";
 
 function Hero() {
+  const [content, setContent] = useState({ topic: "The Human Edge", name: "Janani" });
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/content")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.topic && data.name) {
+          setContent({ topic: data.topic, name: data.name });
+        }
+      })
+      .catch((err) => console.error("Failed to fetch hero content:", err));
+  }, []);
+
   return (
     <main className="hero">
       <section className="hero-panel">
@@ -9,9 +23,9 @@ function Hero() {
           <p className="tag">Human-Centric Tech Leader for the AI Era</p>
 
           <h1>
-            The Human Edge
+            {content.topic}
             <br />
-            with <span>Janani</span>
+            with <span>{content.name}</span>
           </h1>
 
           <h3>Designing Human-Centric, AI-Enabled Organizations</h3>
