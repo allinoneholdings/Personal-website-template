@@ -2,7 +2,7 @@ import { Request,Response } from "express";
 import feedbackModel from "../model/feedback.model";
 
 
-const createFeedback = async (req: Request, res: Response) => {
+export const createFeedback = async (req: Request, res: Response) => {
     try {
         const { name, profession, message } = req.body;
         if (!name || !profession || !message) {
