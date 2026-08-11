@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
-import industryEx from "../model/industryEx.model";
+import industryExModel from "../model/industryEx.model";
 
-export const createContent = async (req: Request, res: Response) => {
+export const createIndustryEx = async (req: Request, res: Response) => {
     try {
         const { y_of_ex, org_imp,sp_Eng,lead_coutched } = req.body;
 
@@ -11,7 +11,7 @@ export const createContent = async (req: Request, res: Response) => {
             });
         }
 
-        const newContent = await contentModel.create({
+        const newContent = await industryExModel.create({
             y_of_ex,
             org_imp,
             sp_Eng,
@@ -29,9 +29,6 @@ export const createContent = async (req: Request, res: Response) => {
             error: error.message
         });
     }
-}  
-        
-    
-
+}
 
         

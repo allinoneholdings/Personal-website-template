@@ -2,9 +2,9 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IIndustryEx extends Document {
   y_of_ex: number;
-  org_imp: string;
-  sp_Eng: string;
-  lead_coutched: string;
+  org_imp: number;
+  sp_Eng: number;
+  lead_coutched: number;
 }
 
 const industryExSchema = new Schema({
