@@ -8,6 +8,10 @@ const contentSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
+  },
+  image: {
+    type:Image,
+    required:true
   }
 });
 

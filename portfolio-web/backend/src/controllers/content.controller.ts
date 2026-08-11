@@ -3,12 +3,30 @@ import contentModel from "../model/content.model";
 
 export const createContent = async (req: Request, res: Response) => {
   try {
-    const { title, name } = req.body;
+    const { title, name, image } = req.body;
+
+    let img = {
+      url: "",
+      fileId: "",
+    };
+    if (req.file) {
+            try {
+                const uploaded = await uploadImage(req.file);
+                if (uploaded) {
+                    image.url = uploaded.url;
+                    image.fileId = uploaded.fileId;
+                }
+            } catch (uploadError) {
+                console.error('Image upload failed:', uploadError);
+            }
+        }
 
     const savedContent = await contentModel.create({
       title,
       name,
+      img
     });
+    
 
     res.status(201).json({
       message: "Content created successfully",
