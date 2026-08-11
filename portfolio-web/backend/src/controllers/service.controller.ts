@@ -1,7 +1,7 @@
-import {Request, Response} from "express";
-import expertiseModel from "../model/expertice.model";
+import { Request,Response } from "express";
+import serviceModel from "../model/service.model";
 
-export const createExpertise = async (req: Request, res: Response) => {
+export const createService = async (req: Request, res: Response) => {
     try {
         const { title, description } = req.body;
         if (!title || !description) {
@@ -9,20 +9,19 @@ export const createExpertise = async (req: Request, res: Response) => {
                 message: "Title and description are required"
             });
         }
-        const newExpertise = await expertiseModel.create({
+        const newService = await serviceModel.create({
             title,
             description
         });
 
         return res.status(201).json({
-            message: "Expertise created successfully",
-            data: newExpertise
+            message: "Service created successfully",
+            data: newService
         });
     } catch (error: any) {
         res.status(500).json({
-            message: "Error creating expertise",
+            message: "Error creating service",
             error: error.message
         });
     }
 };
-

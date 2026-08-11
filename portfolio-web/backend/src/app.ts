@@ -3,6 +3,8 @@ import cors from "cors";
 import contentRoutes from "./routes/content.router";
 import industryExRoutes from "./routes/industryEx.routes";
 import aboutRoutes from "./routes/about.routes";
+import expertiseRoutes from "./routes/expertise.route";
+import serviceRoutes from "./routes/service.route";
 
 const app = express();
 
@@ -19,4 +21,6 @@ app.get("/", (req, res) => {
 app.use("/api",contentRoutes);
 app.use("/api",industryExRoutes);
 app.use("/api",aboutRoutes);
+app.use("/api",expertiseRoutes);
+app.use("/api",serviceRoutes);
 export default app;
